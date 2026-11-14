@@ -51,3 +51,36 @@ VALUES
 (3, 'Elderly Support', 'Providing assistance to elderly residents.', 'Accra', '2026-12-03'),
 (3, 'Community Sports', 'Organizing sports activities for youth.', 'Kasoa', '2026-12-05');
 
+CREATE TABLE IF NOT EXISTS category (
+    category_id SERIAL PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS project_category (
+    project_id INT NOT NULL,
+    category_id INT NOT NULL,
+
+    PRIMARY KEY (project_id, category_id),
+
+    FOREIGN KEY (project_id)
+        REFERENCES project(project_id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (category_id)
+        REFERENCES category(category_id)
+        ON DELETE CASCADE
+);
+
+INSERT INTO category (category_name)
+VALUES
+    ('Environmental'),
+    ('Educational'),
+    ('Community Service'),
+    ('Health and Wellness');
+
+INSERT INTO project_category (project_id, category_id)
+VALUES
+    (1, 1),
+    (1, 3),
+    (2, 2),
+    (3, 4);
